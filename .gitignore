@@ -1,15 +1,3 @@
-## Custom experiment
-
-# Data used to train the models
-data/features
-data/prepared
-
-# The models
-*.pkl
-
-# The models evaluations
-evaluation
-
 ## Python
 
 # Environments
@@ -18,3 +6,10 @@ evaluation
 # Byte-compiled / optimized / DLL files
 __pycache__/
 
+## DVC
+
+# The plots created by DVC
+dvc_plots
+
+# Files added by DVC
+/model.pkl
