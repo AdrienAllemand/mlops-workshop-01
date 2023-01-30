@@ -26,8 +26,8 @@ stages:
       size: 8437363
       nfiles: 2
     - path: src/featurization.py
-      md5: e0265fc22f056a4b86d85c3056bc2894
-      size: 2490
+      md5: 127c9f5715b3f47910f96d0c08016794
+      size: 2619
     params:
       params.yaml:
         featurize.max_features: 500
@@ -36,41 +36,49 @@ stages:
     - path: data/features/test.pkl
       md5: 480a3a41f731ec7d31bdbeb8bdf48b80
       size: 803722
+    - path: data/features/tfidf
+      md5: ece11c09d2890c889053cd652f7f9f74
+      size: 8646
     - path: data/features/train.pkl
       md5: c72480f26465f79e94b2bef3df64bf66
       size: 2400546
+    - path: data/features/vectorizer
+      md5: b902c1dd9443facd6adb89d29b29fa06
+      size: 16588302
   train:
-    cmd: python src/train.py data/features model.pkl
+    cmd: python src/train.py data/features models/rf
     deps:
     - path: data/features
-      md5: 6b7c9da217154387bc2d38d79cac94c4.dir
-      size: 3204289
-      nfiles: 3
+      md5: 0f458d3f5518106eed4c75f4d3f67aa1.dir
+      size: 19801256
+      nfiles: 5
     - path: src/train.py
-      md5: c3961d777cfbd7727f9fde4851896006
-      size: 967
+      md5: 6355ca2e5f8595662880c754832aaa50
+      size: 1272
     params:
       params.yaml:
         train.min_split: 2
         train.n_est: 50
         train.seed: 20170428
     outs:
-    - path: model.pkl
-      md5: 786d93f7dc41ab6270ec15a0804ba281
-      size: 5581465
+    - path: models/rf
+      md5: 285b9213a474d9e9fef11a391a36ac4b.dir
+      size: 22179066
+      nfiles: 2
   evaluate:
-    cmd: python src/evaluate.py model.pkl data/features
+    cmd: python src/evaluate.py models/rf data/features
     deps:
     - path: data/features
-      md5: 6b7c9da217154387bc2d38d79cac94c4.dir
-      size: 3204289
-      nfiles: 3
-    - path: model.pkl
-      md5: 786d93f7dc41ab6270ec15a0804ba281
-      size: 5581465
+      md5: 0f458d3f5518106eed4c75f4d3f67aa1.dir
+      size: 19801256
+      nfiles: 5
+    - path: models/rf
+      md5: 285b9213a474d9e9fef11a391a36ac4b.dir
+      size: 22179066
+      nfiles: 2
     - path: src/evaluate.py
-      md5: 759095a28408e6a0dfe6019ba24eb6d5
-      size: 2659
+      md5: 116d7619c56ede68f2c413615d7ded12
+      size: 2657
     outs:
     - path: evaluation/metrics.json
       md5: 5d863f9164318a7dccef1129030e3ea7

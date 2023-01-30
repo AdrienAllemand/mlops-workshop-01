@@ -1,0 +1,92 @@
+artifacts:
+  model/data:
+    hash: 786d93f7dc41ab6270ec15a0804ba281
+    size: 5581465
+    type: dvc
+    uri: rf/model
+  preprocess/data.pkl:
+    hash: 8d201e81fc827fb3213637bcee579d7f
+    size: 16597601
+    type: dvc
+    uri: rf/preprocess
+call_orders:
+  predict:
+  - - preprocess
+    - __call__
+  - - model
+    - predict
+  predict_proba:
+  - - preprocess
+    - __call__
+  - - model
+    - predict_proba
+object_type: model
+processors:
+  model:
+    methods:
+      predict:
+        args:
+        - name: X
+          type_:
+            dtype: float64
+            shape:
+            - null
+            - 500
+            type: ndarray
+        name: predict
+        returns:
+          dtype: float64
+          shape:
+          - null
+          type: ndarray
+      predict_proba:
+        args:
+        - name: X
+          type_:
+            dtype: float64
+            shape:
+            - null
+            - 500
+            type: ndarray
+        name: predict_proba
+        returns:
+          dtype: float64
+          shape:
+          - null
+          - 2
+          type: ndarray
+    type: sklearn
+  preprocess:
+    io:
+      type: pickle
+    methods:
+      __call__:
+        args:
+        - name: x
+          type_:
+            items:
+            - ptype: str
+              type: primitive
+            type: list
+        name: __call__
+        returns:
+          dtype: float64
+          shape:
+          - null
+          - 500
+          type: ndarray
+    type: callable
+requirements:
+- module: numpy
+  version: 1.24.1
+- module: yaml
+  package_name: PyYAML
+  version: '6.0'
+- is_package: false
+  module: __main__
+  name: __main__
+  source64zip: eJx9VE2L2zAQvetXTN2LDUZmdymUgA+lUOitLC20pCGrxONYu/qqJOdjS/97x1Ky2XabhhykGT3Ne29GltpZH8EGJvPKyfWDwtMuHAI7rc2o3QFEAONOoYPQivXeaggEEt5wNAH1SiEcT9wK01n9wXoM8b0SIcheomcZpBVqLpw8HVZWdDUEsUXGnPBCB2hTDR5Ej8spXVqHpixylk+5oqrmRfRCmmJBXHtQdIB4c+E32wpetXAzY0C/KRZih97znZcRy+Kd34waTQxAQes5fAlig7PvpqguIL5Hd4iDNZAKcvKjRxFHUgfadqj+gOJexvKqIlLGjZGknFjNrxbMjvGv4PWCBcSOQlndvJi2JMosybxn4bSnuJZmGZySz3NPscmMnYwDJMNs4E7Egd9bacpEp4biqOGBLKSdXxXV1N2+y3ZpEb3c17Ccbk9DwVMD+o4UKbFCNXXHOB5+jIiPWGbAfFbD1YJHK7wXh7Kq2J6OnXPXs2dJxl5a/DGZlQEQ5CPCz19kK++tp+CxCg+DcEiXv8R/vYz9H+zbZVgW+4Rla9WTpH9Pdpm8Sx2ShLU+tGlTQ+qM0E5hyB1qn3pVE+DerkJ7XYNP1y5DFBHbaQBYrsh7GiZqRyZDsdjLbuKRmlJ0IormNItNytEkbnFNFEiQv3DwfKCYmkEvLwuggnVa5DHN69dwi9puEeKAcHfu4h3sBjQp2lul7E6aDXy6BUmPAv0GuxkMMbowa5oNTeS44murG3Ldiyi32EyfgcaNSjVvbt6mSs6j83aNIbRK6FUnYD+DJKo8My73VXUmkSlmg5eTyHZefB6IAv3FMQ4R95HTy6jYb9O0sro=
+  type: custom
+- module: sklearn
+  package_name: scikit-learn
+  version: 1.1.3
