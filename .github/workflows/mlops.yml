@@ -1,10 +1,10 @@
 name: MLOps
 
 on:
-  # Runs on pushes targeting master branch
+  # Runs on pushes targeting main branch
   push:
     branches:
-      - master
+      - main
 
   # Runs on pull requests
   pull_request:
@@ -76,18 +76,18 @@ jobs:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Fetch all other Git branches
-          git fetch --depth=1 origin master:master
+          git fetch --depth=1 origin main:main
 
-          # Compare parameters to master branch
-          echo "# Params workflow vs. master" >> report.md
+          # Compare parameters to main branch
+          echo "# Params workflow vs. main" >> report.md
           echo >> report.md
-          dvc params diff master --show-md >> report.md
+          dvc params diff main --show-md >> report.md
           echo >> report.md
 
-          # Compare metrics to master branch
-          echo "# Metrics workflow vs. master" >> report.md
+          # Compare metrics to main branch
+          echo "# Metrics workflow vs. main" >> report.md
           echo >> report.md
-          dvc metrics diff master --show-md >> report.md
+          dvc metrics diff main --show-md >> report.md
           echo >> report.md
 
           # Create plots
@@ -100,7 +100,7 @@ jobs:
             --target evaluation/plots/prc.json \
             -x recall \
             -y precision \
-            --show-vega master > vega.json
+            --show-vega main > vega.json
           vl2png vega.json > prc.png
           echo '![](./prc.png "Precision recall curve")' >> report.md
           echo >> report.md
@@ -111,7 +111,7 @@ jobs:
             --target evaluation/plots/sklearn/roc.json \
             -x fpr \
             -y tpr \
-            --show-vega master > vega.json
+            --show-vega main > vega.json
           vl2png vega.json > roc.png
           echo '![](./roc.png "Roc curve")' >> report.md
           echo >> report.md
@@ -123,7 +123,7 @@ jobs:
             --template confusion \
             -x actual \
             -y predicted \
-            --show-vega master > vega.json
+            --show-vega main > vega.json
           vl2png vega.json > confusion_matrix.png
           echo '![](./confusion_matrix.png "Confusion Matrix")' >> report.md
           echo >> report.md
