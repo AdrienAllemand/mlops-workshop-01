@@ -1,7 +1,8 @@
 ## Custom experiment
 
 # Data used to train the models
-data
+data/features
+data/prepared
 
 # The models
 *.pkl
