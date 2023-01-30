@@ -30,21 +30,21 @@ stages:
       size: 2490
     params:
       params.yaml:
-        featurize.max_features: 100
-        featurize.ngrams: 1
+        featurize.max_features: 400
+        featurize.ngrams: 4
     outs:
     - path: data/features/test.pkl
-      md5: c5b03e667f549a39ac43ff69a7d8fd08
-      size: 309799
+      md5: 4d6d4b2c299946c1cb93a8c3fd3afae0
+      size: 588116
     - path: data/features/train.pkl
-      md5: 73ad882c34cc2b61e0eae81861947a88
-      size: 1246491
+      md5: 57fed732b45f6fb49b54e71b6c2488c3
+      size: 2370412
   train:
     cmd: python src/train.py data/features model.pkl
     deps:
     - path: data/features
-      md5: f8f5cbc3188008a7542d02d63054d9d2.dir
-      size: 1556290
+      md5: 7e8108dd9ce3103084840c69ccd3e164.dir
+      size: 2958528
       nfiles: 2
     - path: src/train.py
       md5: c3961d777cfbd7727f9fde4851896006
@@ -56,5 +56,38 @@ stages:
         train.seed: 20170428
     outs:
     - path: model.pkl
-      md5: d4ef28f873e02fd7d075f9ceec0f17b2
-      size: 7185236
+      md5: 097746d314e6c1f495c31f6eca54f374
+      size: 5930377
+  evaluate:
+    cmd: python src/evaluate.py model.pkl data/features
+    deps:
+    - path: data/features
+      md5: 7e8108dd9ce3103084840c69ccd3e164.dir
+      size: 2958528
+      nfiles: 2
+    - path: model.pkl
+      md5: 097746d314e6c1f495c31f6eca54f374
+      size: 5930377
+    - path: src/evaluate.py
+      md5: 759095a28408e6a0dfe6019ba24eb6d5
+      size: 2659
+    outs:
+    - path: evaluation/metrics.json
+      md5: 68a3146b7a770caeff8f81b9a3e3c3b6
+      size: 73
+    - path: evaluation/plots/importance.png
+      md5: 06b78ee6362aa0f8c43376f50e3b3739
+      size: 36597
+    - path: evaluation/plots/metrics
+      md5: f0df1e38d49451fad3ad023c8051aafd.dir
+      size: 69
+      nfiles: 2
+    - path: evaluation/plots/prc.json
+      md5: 0fecc94fe09bd7144aa79dc4e169d598
+      size: 6956
+    - path: evaluation/plots/sklearn/confusion_matrix.json
+      md5: 2729183d73790532b23859e0d95efb8f
+      size: 122246
+    - path: evaluation/plots/sklearn/roc.json
+      md5: 2f6f8765078691e9c7b0f6bcea772779
+      size: 6662
